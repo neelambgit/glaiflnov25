@@ -147,6 +147,52 @@
   ::-webkit-scrollbar{width:6px;height:6px;}
   ::-webkit-scrollbar-track{background:transparent;}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+  /* ── COMMENTS ── */
+  .comment-btn{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(79,142,247,.1);color:var(--accent);border:1px solid rgba(79,142,247,.25);cursor:pointer;transition:background .15s,opacity .15s;margin-left:12px;vertical-align:middle;white-space:nowrap;}
+  .comment-btn:hover{background:rgba(79,142,247,.22);}
+  .comment-btn .cnt{background:var(--accent);color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:800;min-width:18px;text-align:center;}
+  .comment-btn .cnt.has{background:#34d399;}
+
+  .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .drawer-overlay.open{opacity:1;pointer-events:all;}
+  .drawer{position:fixed;right:0;top:0;bottom:0;width:440px;max-width:96vw;background:var(--surface);border-left:1px solid var(--border);z-index:201;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;}
+  .drawer.open{transform:translateX(0);}
+
+  .drawer-head{padding:20px 22px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px;flex-shrink:0;}
+  .drawer-head-info{flex:1;}
+  .drawer-head-info .dh-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:3px;}
+  .drawer-head-info h3{font-size:15px;font-weight:700;color:var(--white);}
+  .drawer-close{width:30px;height:30px;border-radius:50%;background:var(--card2);border:1px solid var(--border);color:var(--muted);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:color .15s;}
+  .drawer-close:hover{color:var(--white);}
+
+  .drawer-comments{flex:1;overflow-y:auto;padding:14px 22px;}
+  .no-comments{text-align:center;color:var(--muted);font-size:13px;padding:40px 0;line-height:1.7;}
+
+  .comment-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px 15px;margin-bottom:10px;animation:fadeIn .2s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .ci-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .ci-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;}
+  .ci-name{font-size:12px;font-weight:700;color:var(--white);flex:1;}
+  .ci-time{font-size:11px;color:var(--muted);}
+  .ci-text{font-size:13px;color:var(--text);line-height:1.6;white-space:pre-wrap;word-break:break-word;}
+
+  .drawer-form{padding:14px 22px 18px;border-top:1px solid var(--border);flex-shrink:0;background:var(--surface);}
+  .drawer-form select,.drawer-form textarea{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:9px 12px;font-size:13px;font-family:inherit;margin-bottom:8px;outline:none;transition:border-color .15s;display:block;}
+  .drawer-form select:focus,.drawer-form textarea:focus{border-color:var(--accent);}
+  .drawer-form textarea{resize:vertical;min-height:80px;max-height:160px;}
+  .drawer-submit{width:100%;padding:10px;background:var(--grad);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s;}
+  .drawer-submit:hover{opacity:.88;}
+  .drawer-submit:disabled{opacity:.4;cursor:not-allowed;}
+
+  .setup-banner{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.3);border-radius:14px;padding:20px 24px;margin-bottom:28px;}
+  .setup-banner h4{color:var(--gold);font-size:14px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .setup-banner p{color:var(--muted);font-size:13px;line-height:1.65;margin-bottom:10px;}
+  .setup-steps{counter-reset:step;}
+  .setup-steps li{color:var(--muted);font-size:12px;line-height:1.8;list-style:none;padding-left:24px;position:relative;}
+  .setup-steps li::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:1px;width:16px;height:16px;background:rgba(245,158,11,.2);color:var(--gold);border-radius:50%;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .setup-code{display:inline;background:var(--card2);color:var(--accent);padding:1px 7px;border-radius:4px;font-size:11px;font-family:monospace;}
+  .deploy-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
 </style>
 </head>
 <body>
@@ -158,8 +204,8 @@
     <div class="nav-links">
       <a href="#brief" onclick="setActive(this)">Brief</a>
       <a href="#team" onclick="setActive(this)">Team</a>
-      <a href="#milestones" onclick="setActive(this)">Milestones</a>
       <a href="#timeline" onclick="setActive(this)">Timeline</a>
+      <a href="#milestones" onclick="setActive(this)">Milestones</a>
       <a href="#ideas" onclick="setActive(this)">Ideas</a>
       <a href="#communication" onclick="setActive(this)">Communication</a>
       <a href="#selected" onclick="setActive(this)">Selected Project</a>
@@ -169,7 +215,51 @@
   </div>
 </nav>
 
+<!-- COMMENTS DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div class="drawer-head-info">
+      <div class="dh-label">Comments</div>
+      <h3 id="drawerSectionTitle">Section</h3>
+    </div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-comments" id="drawerComments">
+    <div class="no-comments">No comments yet.<br/>Be the first to add one.</div>
+  </div>
+  <div class="drawer-form">
+    <select id="commentAuthor">
+      <option value="">— Select your name —</option>
+      <option>Anu George Canjanathoppil</option>
+      <option>Gaurav Gupta</option>
+      <option>Neelam Bhatt</option>
+      <option>Paarisha Rana</option>
+      <option>Praveen Janardanan</option>
+      <option>Shyamala K</option>
+    </select>
+    <textarea id="commentText" placeholder="Write your comment or feedback for this section…"></textarea>
+    <button class="drawer-submit" id="submitBtn" onclick="submitComment()">Post Comment</button>
+  </div>
+</div>
+
 <div class="page">
+  <!-- SETUP BANNER — hidden once Firebase is configured -->
+  <div class="setup-banner" id="setup-banner">
+    <h4>⚙️ One-time Firebase Setup Required to Enable Comments</h4>
+    <p>Comments are powered by <strong style="color:var(--white);">Firebase Realtime Database</strong> (free tier — no credit card needed). Complete the 3-step setup below, paste your config into this HTML file, then deploy.</p>
+    <ol class="setup-steps">
+      <li>Go to <strong style="color:var(--white);">console.firebase.google.com</strong> → Create a project (any name) → Disable Google Analytics → Create</li>
+      <li>Inside the project: <strong style="color:var(--white);">Build → Realtime Database → Create Database → Start in test mode</strong> (allows read/write for 30 days; extend rules anytime)</li>
+      <li>Go to <strong style="color:var(--white);">Project Settings (gear icon) → Your apps → Add app → Web (&lt;/&gt;)</strong> → Register app → Copy the <span class="setup-code">firebaseConfig</span> object → paste it into the <span class="setup-code">FIREBASE_CONFIG</span> block near the bottom of this HTML file</li>
+    </ol>
+    <p style="margin-top:12px;margin-bottom:6px;"><strong style="color:var(--white);">Deploy the file (pick any free option):</strong></p>
+    <div class="deploy-chips">
+      <span class="chip chip-blue">Netlify Drop — drag &amp; drop at netlify.com/drop</span>
+      <span class="chip chip-purple">GitHub Pages — push to repo, enable Pages</span>
+      <span class="chip chip-green">Vercel — vercel.com/new, import file</span>
+    </div>
+  </div>
 
   <!-- HERO -->
   <div class="hero">
@@ -307,21 +397,210 @@
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════════ TIMELINE ══ -->
+  <section id="timeline">
+    <div class="section-header">
+      <div class="section-tag">03 — Project Timeline</div>
+      <h2>Key Dates &amp; Milestones</h2>
+      <p>Official capstone schedule from PGP AIFL Nov 2025 Program Delivery Schedule — all dates confirmed</p>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-title">Overall Progress — Mar 28 to May 10 (43 days total)</div>
+      <div style="position:relative;height:12px;background:var(--border);border-radius:6px;overflow:hidden;margin-bottom:10px;">
+        <div style="position:absolute;left:0;top:0;height:100%;width:26%;background:linear-gradient(90deg,#4f8ef7,#7c3aed);border-radius:6px;"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;text-align:center;font-size:10px;">
+        <div style="color:#34d399;font-weight:700;">✓ Mar 28<br/><span style="color:var(--muted);font-weight:400;">Kickoff</span></div>
+        <div style="color:#34d399;font-weight:700;">✓ Apr 4–8<br/><span style="color:var(--muted);font-weight:400;">Meetings</span></div>
+        <div style="color:var(--gold);font-weight:700;">→ Apr 12<br/><span style="color:var(--muted);font-weight:400;">Guidance 2</span></div>
+        <div style="color:var(--muted);">Apr 19<br/><span style="font-weight:700;color:var(--gold);">M1 Due</span></div>
+        <div style="color:var(--muted);">May 3<br/><span style="font-weight:700;color:#a78bfa;">M2 Due</span></div>
+        <div style="color:var(--muted);">May 10<br/><span style="font-weight:700;color:var(--accent);">Final Pitch</span></div>
+      </div>
+    </div>
+
+    <!-- Full timeline -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">Full Project Calendar</div>
+      <div class="tl" style="padding-top:8px;">
+
+        <div class="tl-item">
+          <div class="tl-dot dot-green" style="font-size:11px;">✓</div>
+          <div class="tl-body">
+            <div class="tl-date">March 20, 2026</div>
+            <div class="tl-title">Capstone Content Released</div>
+            <div class="tl-desc">Capstone project materials made available on Olympus. Official content release date per program schedule.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-green" style="font-size:11px;">✓</div>
+          <div class="tl-body">
+            <div class="tl-date">March 28, 2026</div>
+            <div class="tl-title">Responsible AI — Industry Session &amp; Capstone Orientation</div>
+            <div class="tl-desc">Industry session on Responsible AI. Capstone project officially initiated for groups. Brief shared — teams directed to identify a market opportunity, design an AI product, and build a complete business case for pitch to industry experts.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-green" style="font-size:11px;">✓</div>
+          <div class="tl-body">
+            <div class="tl-date">March 29, 2026</div>
+            <div class="tl-title">Capstone Initiation — MLS Session (Anwesh)</div>
+            <div class="tl-desc">Live MLS session with faculty (Anwesh). Capstone structure, milestone expectations, and evaluation criteria walked through with all groups.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-green" style="font-size:11px;">✓</div>
+          <div class="tl-body">
+            <div class="tl-date">April 4, 2026</div>
+            <div class="tl-title">First Mentor Session</div>
+            <div class="tl-desc">First structured mentor touchpoint. Opportunity to get directional feedback, clarify scope, and validate early topic thinking ahead of group meetings.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-green" style="font-size:11px;">✓</div>
+          <div class="tl-body">
+            <div class="tl-date">April 5, 2026</div>
+            <div class="tl-title">Guidance Session 1</div>
+            <div class="tl-desc">First scheduled guidance session. Capstone check-in with faculty guidance on approach and direction.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-green" style="font-size:11px;">✓</div>
+          <div class="tl-body">
+            <div class="tl-date">April 6, 2026</div>
+            <div class="tl-title">Group Meeting 1 — First Ideas Discussion</div>
+            <div class="tl-desc">15-min WhatsApp call. Three ideas surfaced: Employee Engagement Platform, Healthcare EHR/PHR Platform, and AI Tool Comparison Engine (Praveen Janardanan). No final decision — reconvene April 7.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-green" style="font-size:11px;">✓</div>
+          <div class="tl-body">
+            <div class="tl-date">April 7, 2026</div>
+            <div class="tl-title">Group Meeting 2 — Topic Selected ✓</div>
+            <div class="tl-desc">Full team introductions. Anu George Canjanathoppil proposed the Missing Children Intelligence &amp; Response Platform drawing on 20 years of anti-trafficking experience. Group aligned. <strong style="color:#34d399;">SafeTrace AI confirmed as capstone topic.</strong></div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-gold">→</div>
+          <div class="tl-body">
+            <div class="tl-date">April 8, 2026 &nbsp;<span class="badge b-blue" style="font-size:10px;vertical-align:middle;">TODAY</span></div>
+            <div class="tl-title">Group Meeting 3 — Research Review &amp; MVP Scoping</div>
+            <div class="tl-desc">Google Meet (transcription enabled). Confirm topic, define MVP scope, assign M1 sections to members, set up Google Drive, align on primary AI approach for POC.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-blue" style="font-size:10px;font-weight:800;">G2</div>
+          <div class="tl-body">
+            <div class="tl-date">April 12, 2026</div>
+            <div class="tl-title">Guidance Session 2</div>
+            <div class="tl-desc">Second faculty guidance check-in. Good checkpoint to share M1 draft progress, validate market sizing approach, and confirm financial model direction before the April 19 deadline.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(245,158,11,.2);color:var(--gold);border:2px solid var(--gold);font-size:10px;font-weight:800;">M1</div>
+          <div class="tl-body">
+            <div class="tl-date">April 19, 2026 &nbsp;<span class="badge b-gold" style="font-size:10px;vertical-align:middle;">⏱ 11 days away</span></div>
+            <div class="tl-title" style="color:var(--gold);">🔴 Milestone 1 Submission Deadline — Capstone First Submission</div>
+            <div class="tl-desc">
+              Interim Report submitted as PDF on Olympus. Sections required:
+              <ul style="margin-top:6px;margin-left:16px;color:var(--muted);line-height:1.8;">
+                <li>Problem Statement &amp; Challenges</li>
+                <li>Solution at a Glance — why AI, what's the USP</li>
+                <li>Market Size &amp; SWOT — TAM/SAM/SOM, 5-year &amp; 10-year projections</li>
+                <li>Competition — key players, competitive differentiators</li>
+                <li>Target Customer — buyer personas (demographics / firmographics)</li>
+                <li>Company Description — mission, vision, values, short &amp; long-term goals</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-blue" style="font-size:10px;font-weight:800;">G3</div>
+          <div class="tl-body">
+            <div class="tl-date">April 19, 2026</div>
+            <div class="tl-title">Guidance Session 3</div>
+            <div class="tl-desc">Third faculty guidance session — same day as M1 deadline. Likely a post-submission debrief and M2 kickoff direction.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-blue" style="font-size:10px;font-weight:800;">G4</div>
+          <div class="tl-body">
+            <div class="tl-date">April 26, 2026</div>
+            <div class="tl-title">Guidance Session 4</div>
+            <div class="tl-desc">Fourth and final faculty guidance session. Final checkpoint before M2 + Presentation Submission on May 3. Validate financials, roadmap, and pitch deck structure.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(167,139,250,.2);color:#a78bfa;border:2px solid #a78bfa;font-size:10px;font-weight:800;">M2</div>
+          <div class="tl-body">
+            <div class="tl-date">May 3, 2026</div>
+            <div class="tl-title" style="color:#a78bfa;">🔴 Milestone 2 + Presentation Submission Deadline</div>
+            <div class="tl-desc">
+              Final Report (Word → PDF) + Presentation deck (PPT → PDF) both due on Olympus. Report must cover all M1 sections plus:
+              <ul style="margin-top:6px;margin-left:16px;color:var(--muted);line-height:1.8;">
+                <li>Product — features, benefits, how it solves the problem</li>
+                <li>Requirements — data sources, team roles, preprocessing plan</li>
+                <li>Product Development Roadmap — phases, algorithms, key metrics</li>
+                <li>Expansion Plan — 6-month to 1-year roadmap, market expansion</li>
+                <li>Business Model (Financials) — startup costs, revenue (6M/1Y/3Y), ROI calculator, break-even</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(79,142,247,.2);color:var(--accent);border:2px solid var(--accent);font-size:9px;font-weight:800;">PPT</div>
+          <div class="tl-body">
+            <div class="tl-date">May 10, 2026 — MLS Session</div>
+            <div class="tl-title" style="color:var(--accent);">🎤 Capstone Final Presentation — Live Pitch to Industry Experts</div>
+            <div class="tl-desc">Max 15-slide business pitch. <strong style="color:var(--white);">20-minute presentation</strong> per team followed by <strong style="color:var(--white);">10-minute Q&amp;A</strong> with industry experts. All 6 members must participate. This is the final live session of the PGP AIFL program.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Weeks at a glance -->
+    <div class="card">
+      <div class="card-title">Weeks at a Glance</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Period</th><th>Dates</th><th>Key Events</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Kickoff</strong></td><td>Mar 20–29</td><td>Content released (Mar 20) · Responsible AI Industry Session (Mar 28) · Capstone Initiation MLS (Mar 29)</td><td><span class="badge b-green">✓ Done</span></td></tr>
+            <tr><td><strong>Week 1</strong></td><td>Mar 31 – Apr 6</td><td>First Mentor Session (Apr 4) · Guidance 1 (Apr 5) · Group Meeting 1 (Apr 6)</td><td><span class="badge b-green">✓ Done</span></td></tr>
+            <tr class="highlight"><td><strong>Week 1–2</strong></td><td>Apr 7 – Apr 13</td><td>Topic confirmed (Apr 7) · Meeting 3 today (Apr 8) · Guidance 2 (Apr 12) · M1 drafting in full swing</td><td><span class="badge b-gold">In Progress</span></td></tr>
+            <tr><td><strong>Week 2–3</strong></td><td>Apr 14 – Apr 18</td><td>M1 final drafting — all sections to be completed and reviewed by group</td><td><span class="badge b-gray">Upcoming</span></td></tr>
+            <tr><td><strong>🔴 Apr 19</strong></td><td>Apr 19</td><td><strong style="color:var(--gold);">Milestone 1 Deadline + Guidance Session 3</strong></td><td><span class="badge b-gold">Deadline</span></td></tr>
+            <tr><td><strong>Week 3–4</strong></td><td>Apr 20 – Apr 26</td><td>M2 work — product, roadmap, financials · Guidance 4 (Apr 26)</td><td><span class="badge b-gray">Upcoming</span></td></tr>
+            <tr><td><strong>🔴 May 3</strong></td><td>May 3</td><td><strong style="color:#a78bfa;">Milestone 2 + Presentation Submission Deadline</strong></td><td><span class="badge b-gray">Upcoming</span></td></tr>
+            <tr><td><strong>🎤 May 10</strong></td><td>May 10</td><td><strong style="color:var(--accent);">Final Presentation — Live Pitch (MLS Session)</strong></td><td><span class="badge b-gray">Upcoming</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════════════════════════════════════════════ MILESTONES ══ -->
   <section id="milestones">
     <div class="section-header">
-      <div class="section-tag">03 — Milestones & Deadlines</div>
-      <h2>Deliverables & Submission Schedule</h2>
+      <div class="section-tag">04 — Milestones &amp; Deadlines</div>
+      <h2>Deliverables &amp; Submission Schedule</h2>
       <p>Three deliverables across two milestones — all submitted on Olympus as PDFs</p>
-    </div>
-
-    <div class="card" style="margin-bottom:20px;background:rgba(245,158,11,.05);border-color:rgba(245,158,11,.3);">
-      <div style="display:flex;gap:10px;align-items:flex-start;">
-        <span style="font-size:18px">⚠️</span>
-        <p style="font-size:13px;color:var(--gold);">
-          <strong>Deadline Note:</strong> Specific submission dates to be confirmed from Olympus portal. The brief states the project runs over <strong>approximately one month</strong> with two milestone checkpoints. All submissions must be converted to PDF before uploading.
-        </p>
-      </div>
     </div>
 
     <div class="grid-3" style="margin-bottom:24px;">
@@ -331,13 +610,13 @@
           <div class="milestone-num m1-color">M1</div>
           <div>
             <div style="font-size:14px;font-weight:700;color:var(--white)">Milestone 1 — Interim Report</div>
-            <div style="font-size:11px;color:var(--muted)">Word → PDF → Submit on Olympus</div>
+            <div style="font-size:11px;color:var(--gold)">Due: April 19, 2026 · Word → PDF → Olympus</div>
           </div>
         </div>
         <div class="milestone-body">
           <div class="check-item">Problem Statement — define the need and challenges</div>
           <div class="check-item">Solution at a Glance — why AI? what's the USP?</div>
-          <div class="check-item">Market Size & SWOT — TAM/SAM/SOM, 5yr & 10yr</div>
+          <div class="check-item">Market Size &amp; SWOT — TAM/SAM/SOM, 5yr &amp; 10yr</div>
           <div class="check-item">Competition — key players, differentiators</div>
           <div class="check-item">Target Customer — buyer personas</div>
           <div class="check-item">Company Description — mission, vision, goals</div>
@@ -349,7 +628,7 @@
           <div class="milestone-num m2-color">M2</div>
           <div>
             <div style="font-size:14px;font-weight:700;color:var(--white)">Milestone 2 — Final Report</div>
-            <div style="font-size:11px;color:var(--muted)">Includes all of M1 + new sections</div>
+            <div style="font-size:11px;color:#a78bfa">Due: May 3, 2026 · Includes all of M1 + new sections</div>
           </div>
         </div>
         <div class="milestone-body">
@@ -366,14 +645,14 @@
           <div class="milestone-num ppt-color">PPT</div>
           <div>
             <div style="font-size:14px;font-weight:700;color:var(--white)">Final Presentation</div>
-            <div style="font-size:11px;color:var(--muted)">Max 15 slides, live pitch to industry experts</div>
+            <div style="font-size:11px;color:var(--accent)">Due: May 3 (submit) · Live: May 10, 2026</div>
           </div>
         </div>
         <div class="milestone-body">
           <div class="check-item">Max 15 slides covering all M1 + M2 areas</div>
-          <div class="check-item">Convert to PDF, submit on Olympus</div>
-          <div class="check-item">20-minute live business pitch</div>
-          <div class="check-item">10-minute Q&A with industry experts</div>
+          <div class="check-item">Convert to PDF, submit on Olympus by May 3</div>
+          <div class="check-item">20-minute live business pitch on May 10</div>
+          <div class="check-item">10-minute Q&amp;A with industry experts</div>
           <div class="check-item">Full group participation required in live presentation</div>
           <div class="check-item">Claims must be data-backed — no unsubstantiated numbers</div>
         </div>
@@ -407,159 +686,6 @@
           <div class="research-item"><div class="ri-dot"></div>ROI calculator with assumptions stated</div>
           <div class="research-item"><div class="ri-dot"></div>Reserve for contingencies (20–25% of startup costs)</div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════ TIMELINE ══ -->
-  <section id="timeline">
-    <div class="section-header">
-      <div class="section-tag">04 — Project Timeline</div>
-      <h2>Key Dates & Milestones</h2>
-      <p>From orientation to final pitch — every checkpoint on the project calendar</p>
-    </div>
-
-    <!-- Progress bar -->
-    <div class="card" style="margin-bottom:20px;">
-      <div class="card-title">Overall Progress</div>
-      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;">
-        <span style="color:var(--muted)">Mar 28 — Orientation</span>
-        <span style="color:var(--accent);font-weight:600;">Week 1 of ~3</span>
-        <span style="color:var(--muted)">~Apr 26 — Final Presentation</span>
-      </div>
-      <div style="position:relative;height:10px;background:var(--border);border-radius:5px;overflow:hidden;">
-        <div style="position:absolute;left:0;top:0;height:100%;width:38%;background:linear-gradient(90deg,#4f8ef7,#7c3aed);border-radius:5px;"></div>
-      </div>
-      <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:11px;color:var(--muted);">
-        <span>▲ Mar 28</span>
-        <span>▲ Apr 4</span>
-        <span>▲ Apr 6–7</span>
-        <span style="color:var(--gold);font-weight:700;">▲ Apr 19 (M1)</span>
-        <span>▲ M2</span>
-        <span>▲ Final PPT</span>
-      </div>
-    </div>
-
-    <!-- Timeline -->
-    <div class="card">
-      <div class="card-title">Full Project Calendar</div>
-      <div class="tl" style="padding-top:8px;">
-
-        <div class="tl-item">
-          <div class="tl-dot dot-green">★</div>
-          <div class="tl-body">
-            <div class="tl-date">March 28, 2026 — Week 0</div>
-            <div class="tl-title">Orientation Day — Project Kickoff</div>
-            <div class="tl-desc">Official start of the PGP AIFL Capstone Project. Program brief shared. Teams formed. Groups given one month to research, develop, and pitch an AI startup idea to industry experts.</div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot dot-blue">1</div>
-          <div class="tl-body">
-            <div class="tl-date">April 4, 2026 — Week 1</div>
-            <div class="tl-title">First Mentor Session</div>
-            <div class="tl-desc">First structured mentor touchpoint with the program faculty. Opportunity to clarify capstone expectations, milestone requirements, and get early directional feedback before topic finalization.</div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot dot-blue">2</div>
-          <div class="tl-body">
-            <div class="tl-date">April 6, 2026 — Week 1</div>
-            <div class="tl-title">Group Meeting 1 — First Ideas Discussion</div>
-            <div class="tl-desc">First group call (15 min, WhatsApp). Three ideas surfaced: Employee Engagement Platform, Healthcare EHR/PHR Platform, and AI Tool Comparison Engine (proposed by Praveen Janardanan). No topic finalized — reconvene the next day.</div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot dot-purple">3</div>
-          <div class="tl-body">
-            <div class="tl-date">April 7, 2026 — Week 1</div>
-            <div class="tl-title">Group Meeting 2 — Topic Pivot & Team Introductions</div>
-            <div class="tl-desc">Full team introduction. Anu George Canjanathoppil introduced the Missing Children Intelligence &amp; Response Platform based on 20 years of anti-trafficking experience. Group pivoted from earlier ideas. Topic confirmed: <strong style="color:#34d399;">SafeTrace AI</strong>. Agreed to move to Google Meet for transcription.</div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot dot-gold">→</div>
-          <div class="tl-body">
-            <div class="tl-date">April 8, 2026 — Week 1 <span style="color:var(--accent);font-size:11px;margin-left:6px;">TODAY</span></div>
-            <div class="tl-title">Group Meeting 3 — Research Review & MVP Scoping</div>
-            <div class="tl-desc">Google Meet (first session with transcription). Agenda: confirm topic, define MVP boundary, assign Milestone 1 sections, align on AI approach for POC, set up shared Google Drive. Research to be shared by all members.</div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot" style="background:rgba(245,158,11,.2);color:var(--gold);border:2px solid var(--gold);font-size:10px;font-weight:800;">M1</div>
-          <div class="tl-body">
-            <div class="tl-date">April 19, 2026 — End of Week 3</div>
-            <div class="tl-title" style="color:var(--gold);">Milestone 1 Submission Deadline</div>
-            <div class="tl-desc">
-              Interim Report due — submitted as PDF on Olympus. Must cover:
-              <ul style="margin-top:6px;margin-left:16px;color:var(--muted);line-height:1.8;">
-                <li>Problem Statement &amp; Challenges</li>
-                <li>Solution at a Glance — why AI, what's the USP</li>
-                <li>Market Size &amp; SWOT — TAM/SAM/SOM, 5yr &amp; 10yr projections</li>
-                <li>Competition — key players, competitive differentiators</li>
-                <li>Target Customer — buyer personas</li>
-                <li>Company Description — mission, vision, goals</li>
-              </ul>
-              <span style="color:var(--gold);font-weight:600;display:block;margin-top:8px;">⏱ 11 days remaining from April 8</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot" style="background:rgba(167,139,250,.2);color:#a78bfa;border:2px solid #a78bfa;font-size:10px;font-weight:800;">M2</div>
-          <div class="tl-body">
-            <div class="tl-date">TBD — End of Week 4 (approx. late April 2026)</div>
-            <div class="tl-title" style="color:#a78bfa;">Milestone 2 Submission Deadline</div>
-            <div class="tl-desc">
-              Final Report due — comprehensive document incorporating M1 + new sections. Must cover:
-              <ul style="margin-top:6px;margin-left:16px;color:var(--muted);line-height:1.8;">
-                <li>Product — features, customer benefits, how it solves the problem</li>
-                <li>Requirements — data sources, team roles, preprocessing plan</li>
-                <li>Product Development Roadmap — phases, algorithms, key metrics</li>
-                <li>Expansion Plan — 6-month to 1-year feature roadmap</li>
-                <li>Business Model (Financials) — startup costs, revenue projections (6M/1Y/3Y), ROI, break-even</li>
-              </ul>
-              <span style="color:var(--muted);font-size:12px;display:block;margin-top:6px;">Confirm exact date from Olympus portal</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="tl-item">
-          <div class="tl-dot" style="background:rgba(79,142,247,.2);color:var(--accent);border:2px solid var(--accent);font-size:9px;font-weight:800;">PPT</div>
-          <div class="tl-body">
-            <div class="tl-date">TBD — ~Late April / Early May 2026</div>
-            <div class="tl-title" style="color:var(--accent);">Final Presentation — Live Pitch to Industry Experts</div>
-            <div class="tl-desc">
-              Max 15-slide business pitch. Each team gets a <strong style="color:var(--white);">20-minute slot</strong> followed by a <strong style="color:var(--white);">10-minute Q&amp;A</strong> with industry experts. All 6 group members must participate. Submit PDF on Olympus before the session.
-              <span style="color:var(--muted);font-size:12px;display:block;margin-top:6px;">Confirm exact date from Olympus portal</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Weeks at a glance -->
-    <div class="card" style="margin-top:16px;">
-      <div class="card-title">Weeks at a Glance</div>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Week</th><th>Dates</th><th>Focus</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Week 0</strong></td><td>Mar 28</td><td>Orientation — project briefed, teams formed</td><td><span class="badge b-green">✓ Done</span></td></tr>
-            <tr><td><strong>Week 1</strong></td><td>Mar 31 – Apr 6</td><td>First mentor session (Apr 4) · Group meetings 1 &amp; 2 · Topic selected</td><td><span class="badge b-green">✓ Done</span></td></tr>
-            <tr class="highlight"><td><strong>Week 1 (now)</strong></td><td>Apr 7 – Apr 13</td><td>Topic confirmed · Research · MVP scoping · M1 drafting begins</td><td><span class="badge b-gold">In Progress</span></td></tr>
-            <tr><td><strong>Week 2</strong></td><td>Apr 14 – Apr 18</td><td>M1 drafting — problem statement, market size, competition, personas, SWOT</td><td><span class="badge b-gray">Upcoming</span></td></tr>
-            <tr><td><strong>Apr 19</strong></td><td>Apr 19</td><td style="color:var(--gold);font-weight:600;">🔴 Milestone 1 Submission Deadline</td><td><span class="badge b-gold">Deadline</span></td></tr>
-            <tr><td><strong>Week 3–4</strong></td><td>Apr 20 – late Apr</td><td>M2 work — product, roadmap, financials, expansion plan</td><td><span class="badge b-gray">Upcoming</span></td></tr>
-            <tr><td><strong>TBD</strong></td><td>Late Apr / May</td><td>Milestone 2 submission · Final PPT · Live presentation</td><td><span class="badge b-gray">Upcoming</span></td></tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </section>
@@ -1097,27 +1223,230 @@
 <footer>
   <div>PGP AIFL Nov 2025 &nbsp;·&nbsp; Group 4 &nbsp;·&nbsp; SafeTrace AI — Missing Children Intelligence & Response Platform</div>
   <div style="margin-top:6px;">Team: Anu George Canjanathoppil · Gaurav Gupta · Neelam Bhatt · Paarisha Rana · Praveen Janardanan · Shyamala K &nbsp;·&nbsp; Last updated: April 8, 2026</div>
-  <div style="margin-top:6px;font-size:11px;color:rgba(139,154,181,.5);">Self-contained HTML · No external dependencies · Safe to share via Google Drive</div>
+  <div style="margin-top:6px;font-size:11px;color:rgba(139,154,181,.5);">PGP AIFL Nov 2025 · Deploy on Netlify / GitHub Pages / Vercel · Comments powered by Firebase</div>
 </footer>
 
+<!-- Firebase SDK (compat v9) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
 <script>
+  /* ─────────────────────────────────────────────────────────────────────────
+     NAV + SCROLL HIGHLIGHT
+  ───────────────────────────────────────────────────────────────────────── */
   function setActive(el){
     document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
     el.classList.add('active');
   }
-  // highlight nav on scroll
-  const sections = document.querySelectorAll('section[id]');
-  const links = document.querySelectorAll('.nav-links a');
-  const obs = new IntersectionObserver(entries=>{
+  const _sections = document.querySelectorAll('section[id]');
+  const _links    = document.querySelectorAll('.nav-links a');
+  const _obs = new IntersectionObserver(entries=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
-        links.forEach(a=>{
+        _links.forEach(a=>{
           a.classList.toggle('active', a.getAttribute('href')==='#'+e.target.id);
         });
       }
     });
-  },{threshold:0.35});
-  sections.forEach(s=>obs.observe(s));
+  },{threshold:0.25});
+  _sections.forEach(s=>_obs.observe(s));
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     FIREBASE CONFIG
+     Replace each value with your Firebase project credentials.
+     Get them from: Firebase Console → Project Settings → Your apps → Web app
+  ───────────────────────────────────────────────────────────────────────── */
+  const FIREBASE_CONFIG = {
+    apiKey:            "AIzaSyBc9MQMRbm9zCLvtqpCxC-kq1aoOu20goQ",
+    authDomain:        "safetraceai.firebaseapp.com",
+    databaseURL:       "https://safetraceai-default-rtdb.firebaseio.com",
+    projectId:         "safetraceai",
+    storageBucket:     "safetraceai.firebasestorage.app",
+    messagingSenderId: "772726911304",
+    appId:             "1:772726911304:web:cf817d20ffac2bb1f6c37d"
+  };
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     SECTION LABELS & AVATAR COLOURS
+  ───────────────────────────────────────────────────────────────────────── */
+  const SECTION_LABELS = {
+    brief:         '01 — Project Brief',
+    team:          '02 — Our Team',
+    timeline:      '03 — Project Timeline',
+    milestones:    '04 — Milestones & Deadlines',
+    ideas:         '05 — Ideas Explored',
+    communication: '06 — Communication Log',
+    selected:      '07 — Selected Project',
+    selected:      '07 — Selected Project',
+    research:      '08 — Research Findings',
+    nextsteps:     '09 — Next Steps'
+  };
+
+  const AVATAR_COLORS = {
+    'Anu George Canjanathoppil': 'linear-gradient(135deg,#7c3aed,#4f8ef7)',
+    'Gaurav Gupta':              'linear-gradient(135deg,#10b981,#3b82f6)',
+    'Neelam Bhatt':              'linear-gradient(135deg,#059669,#0ea5e9)',
+    'Paarisha Rana':             'linear-gradient(135deg,#f472b6,#a78bfa)',
+    'Praveen Janardanan':        'linear-gradient(135deg,#f59e0b,#ef4444)',
+    'Shyamala K':                'linear-gradient(135deg,#ec4899,#8b5cf6)'
+  };
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     INIT FIREBASE
+  ───────────────────────────────────────────────────────────────────────── */
+  let db = null;
+  let currentSection  = null;
+  let currentListener = null;
+
+  const isConfigured = FIREBASE_CONFIG.apiKey !== 'PASTE_YOUR_API_KEY_HERE';
+
+  if (isConfigured) {
+    try {
+      firebase.initializeApp(FIREBASE_CONFIG);
+      db = firebase.database();
+      document.getElementById('setup-banner').style.display = 'none';
+    } catch(e) {
+      console.error('Firebase init failed:', e);
+    }
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     INJECT COMMENT BUTTONS INTO EVERY SECTION HEADER
+  ───────────────────────────────────────────────────────────────────────── */
+  document.querySelectorAll('section[id]').forEach(sec => {
+    const h2 = sec.querySelector('.section-header h2');
+    if (!h2) return;
+    const btn = document.createElement('button');
+    btn.className = 'comment-btn';
+    btn.id  = 'cbtn-' + sec.id;
+    btn.setAttribute('title', 'View / add comments for this section');
+    btn.innerHTML = '💬 <span class="cnt" id="cnt-' + sec.id + '">0</span>';
+    btn.onclick = () => openDrawer(sec.id);
+    h2.appendChild(btn);
+  });
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     LIVE COMMENT COUNTS ON ALL SECTIONS
+  ───────────────────────────────────────────────────────────────────────── */
+  if (db) {
+    Object.keys(SECTION_LABELS).forEach(sid => {
+      db.ref('comments/' + sid).on('value', snap => {
+        const n   = snap.exists() ? Object.keys(snap.val()).length : 0;
+        const el  = document.getElementById('cnt-' + sid);
+        if (!el) return;
+        el.textContent = n;
+        el.className   = 'cnt' + (n > 0 ? ' has' : '');
+      });
+    });
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     OPEN / CLOSE DRAWER
+  ───────────────────────────────────────────────────────────────────────── */
+  function openDrawer(sectionId) {
+    currentSection = sectionId;
+    document.getElementById('drawerSectionTitle').textContent =
+      SECTION_LABELS[sectionId] || sectionId;
+    document.getElementById('drawerOverlay').classList.add('open');
+    document.getElementById('drawer').classList.add('open');
+    document.getElementById('commentText').value = '';
+    loadComments(sectionId);
+  }
+
+  function closeDrawer() {
+    document.getElementById('drawerOverlay').classList.remove('open');
+    document.getElementById('drawer').classList.remove('open');
+    if (db && currentListener && currentSection) {
+      db.ref('comments/' + currentSection).off('value', currentListener);
+      currentListener = null;
+    }
+    currentSection = null;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     LOAD COMMENTS (REAL-TIME)
+  ───────────────────────────────────────────────────────────────────────── */
+  function loadComments(sectionId) {
+    const box = document.getElementById('drawerComments');
+    box.innerHTML = '<div class="no-comments">Loading…</div>';
+
+    if (!db) {
+      box.innerHTML = '<div class="no-comments">⚠️ Firebase not yet configured.<br/>Follow the setup banner at the top of the page.</div>';
+      return;
+    }
+
+    if (currentListener) {
+      db.ref('comments/' + sectionId).off('value', currentListener);
+    }
+
+    currentListener = db.ref('comments/' + sectionId)
+      .orderByChild('ts')
+      .on('value', snap => {
+        box.innerHTML = '';
+        if (!snap.exists()) {
+          box.innerHTML = '<div class="no-comments">No comments yet for this section.<br/>Be the first!</div>';
+          return;
+        }
+        const items = [];
+        snap.forEach(c => items.push({ key: c.key, ...c.val() }));
+        items.reverse();
+        items.forEach(c => {
+          const initials = c.author.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+          const color    = AVATAR_COLORS[c.author] || 'linear-gradient(135deg,#4f8ef7,#7c3aed)';
+          const when     = new Date(c.ts).toLocaleString('en-IN', {
+            day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'
+          });
+          const el = document.createElement('div');
+          el.className = 'comment-item';
+          el.innerHTML = `
+            <div class="ci-head">
+              <div class="ci-avatar" style="background:${color}">${initials}</div>
+              <span class="ci-name">${escHtml(c.author)}</span>
+              <span class="ci-time">${when}</span>
+            </div>
+            <div class="ci-text">${escHtml(c.text)}</div>`;
+          box.appendChild(el);
+        });
+      });
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     SUBMIT COMMENT
+  ───────────────────────────────────────────────────────────────────────── */
+  function submitComment() {
+    const author = document.getElementById('commentAuthor').value.trim();
+    const text   = document.getElementById('commentText').value.trim();
+    if (!author) { alert('Please select your name first.'); return; }
+    if (!text)   { alert('Please write a comment.'); return; }
+    if (!db)     { alert('Firebase is not configured yet.'); return; }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled    = true;
+    btn.textContent = 'Posting…';
+
+    db.ref('comments/' + currentSection).push({
+      author, text, ts: Date.now(), section: currentSection
+    }).then(() => {
+      document.getElementById('commentText').value = '';
+      btn.disabled    = false;
+      btn.textContent = 'Post Comment';
+    }).catch(err => {
+      alert('Error: ' + err.message);
+      btn.disabled    = false;
+      btn.textContent = 'Post Comment';
+    });
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     HELPERS
+  ───────────────────────────────────────────────────────────────────────── */
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+              .replace(/"/g,'&quot;').replace(/\n/g,'<br>');
+  }
+
+  // Close drawer on Escape
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 </script>
 </body>
 </html>
