@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>SafeTrace AI — Capstone Project Overview | PGP AIFL Nov 2025 Group 4</title>
+<style>
+  :root{
+    --navy:#0b1120;--surface:#111827;--card:#1e2535;--card2:#252e42;
+    --border:#2a3550;--accent:#4f8ef7;--accent2:#7c3aed;--accent3:#059669;
+    --gold:#f59e0b;--red:#ef4444;--pink:#ec4899;
+    --text:#e2e8f0;--muted:#8b9ab5;--white:#fff;
+    --grad:linear-gradient(135deg,#4f8ef7,#7c3aed);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--navy);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.6;}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:100;background:rgba(11,17,32,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:0;}
+  .nav-logo{font-weight:800;font-size:15px;color:var(--white);padding:14px 20px 14px 0;border-right:1px solid var(--border);margin-right:8px;white-space:nowrap;}
+  .nav-logo span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .nav-links{display:flex;overflow-x:auto;gap:0;scrollbar-width:none;}
+  .nav-links::-webkit-scrollbar{display:none;}
+  .nav-links a{display:block;padding:14px 14px;color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;white-space:nowrap;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+  .nav-links a:hover,.nav-links a.active{color:var(--accent);border-bottom-color:var(--accent);}
+
+  /* LAYOUT */
+  .page{max-width:1200px;margin:0 auto;padding:40px 24px 80px;}
+  section{margin-bottom:64px;}
+  .section-header{margin-bottom:28px;}
+  .section-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent);background:rgba(79,142,247,.12);border:1px solid rgba(79,142,247,.25);border-radius:20px;padding:3px 12px;margin-bottom:10px;}
+  .section-header h2{font-size:26px;font-weight:800;color:var(--white);}
+  .section-header p{color:var(--muted);margin-top:6px;font-size:14px;}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,rgba(79,142,247,.12),rgba(124,58,237,.08));border:1px solid var(--border);border-radius:20px;padding:48px 40px;text-align:center;position:relative;overflow:hidden;margin-bottom:64px;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(79,142,247,.15),transparent);pointer-events:none;}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(5,150,105,.15);color:#34d399;border:1px solid rgba(5,150,105,.3);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;margin-bottom:20px;}
+  .hero h1{font-size:42px;font-weight:900;color:var(--white);letter-spacing:-0.5px;margin-bottom:10px;}
+  .hero h1 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero-sub{font-size:17px;color:var(--muted);max-width:640px;margin:0 auto 28px;}
+  .hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+  .chip{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid;}
+  .chip-blue{background:rgba(79,142,247,.12);color:var(--accent);border-color:rgba(79,142,247,.3);}
+  .chip-purple{background:rgba(124,58,237,.12);color:#a78bfa;border-color:rgba(124,58,237,.3);}
+  .chip-green{background:rgba(5,150,105,.12);color:#34d399;border-color:rgba(5,150,105,.3);}
+  .chip-gold{background:rgba(245,158,11,.12);color:var(--gold);border-color:rgba(245,158,11,.3);}
+  .chip-pink{background:rgba(236,72,153,.12);color:#f472b6;border-color:rgba(236,72,153,.3);}
+
+  /* CARDS */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;}
+  .card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:16px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media(max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}.hero h1{font-size:28px;}}
+
+  /* STAT BOXES */
+  .stat-box{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;}
+  .stat-num{font-size:32px;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .stat-lbl{font-size:12px;color:var(--muted);margin-top:4px;}
+
+  /* TABLE */
+  .tbl-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;padding:10px 14px;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
+  td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  tr.highlight{background:rgba(79,142,247,.06);}
+
+  /* TIMELINE */
+  .tl{display:flex;flex-direction:column;gap:0;}
+  .tl-item{display:flex;gap:16px;padding-bottom:28px;position:relative;}
+  .tl-item::before{content:'';position:absolute;left:15px;top:30px;width:2px;bottom:0;background:var(--border);}
+  .tl-item:last-child::before{display:none;}
+  .tl-dot{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;margin-top:0;}
+  .dot-blue{background:rgba(79,142,247,.2);color:var(--accent);border:2px solid var(--accent);}
+  .dot-purple{background:rgba(124,58,237,.2);color:#a78bfa;border:2px solid #a78bfa;}
+  .dot-green{background:rgba(5,150,105,.2);color:#34d399;border:2px solid #34d399;}
+  .dot-gold{background:rgba(245,158,11,.2);color:var(--gold);border:2px solid var(--gold);}
+  .dot-gray{background:rgba(139,154,181,.1);color:var(--muted);border:2px solid var(--border);}
+  .tl-body{flex:1;}
+  .tl-date{font-size:11px;color:var(--muted);font-weight:600;}
+  .tl-title{font-size:14px;font-weight:700;color:var(--white);margin:3px 0 5px;}
+  .tl-desc{font-size:13px;color:var(--muted);line-height:1.55;}
+
+  /* TEAM CARDS */
+  .team-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:8px;}
+  .avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--white);flex-shrink:0;}
+  .team-name{font-size:15px;font-weight:700;color:var(--white);}
+  .team-role{font-size:12px;color:var(--muted);}
+  .team-detail{font-size:12px;color:var(--muted);line-height:1.5;margin-top:4px;}
+
+  /* IDEA CARDS */
+  .idea-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;}
+  .idea-card.selected{border-color:rgba(5,150,105,.5);background:linear-gradient(135deg,rgba(5,150,105,.06),var(--card));}
+  .idea-letter{font-size:13px;font-weight:800;color:var(--muted);margin-bottom:8px;}
+  .idea-name{font-size:14px;font-weight:700;color:var(--white);margin-bottom:6px;}
+  .idea-model{font-size:11px;color:var(--muted);}
+  .idea-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;}
+
+  /* PROGRESS */
+  .progress-item{margin-bottom:14px;}
+  .progress-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;}
+  .progress-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+  .progress-fill{height:100%;border-radius:3px;background:var(--grad);}
+
+  /* MILESTONE BOX */
+  .milestone-box{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  .milestone-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+  .milestone-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;}
+  .m1-color{background:rgba(79,142,247,.15);color:var(--accent);}
+  .m2-color{background:rgba(124,58,237,.15);color:#a78bfa;}
+  .ppt-color{background:rgba(245,158,11,.15);color:var(--gold);}
+  .milestone-body{padding:16px 20px;}
+  .check-item{display:flex;gap:8px;padding:5px 0;font-size:13px;align-items:flex-start;}
+  .check-item::before{content:'□';color:var(--muted);flex-shrink:0;margin-top:1px;}
+
+  /* RESEARCH */
+  .research-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;align-items:flex-start;}
+  .research-item:last-child{border-bottom:none;}
+  .research-item .ri-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px;}
+
+  /* QUOTE */
+  .quote-box{background:linear-gradient(135deg,rgba(79,142,247,.08),rgba(124,58,237,.06));border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:16px 20px;font-size:14px;color:var(--muted);line-height:1.65;font-style:italic;}
+
+  /* BADGE */
+  .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
+  .b-green{background:rgba(5,150,105,.15);color:#34d399;border:1px solid rgba(5,150,105,.3);}
+  .b-blue{background:rgba(79,142,247,.15);color:var(--accent);border:1px solid rgba(79,142,247,.3);}
+  .b-gold{background:rgba(245,158,11,.15);color:var(--gold);border:1px solid rgba(245,158,11,.3);}
+  .b-purple{background:rgba(124,58,237,.15);color:#a78bfa;border:1px solid rgba(124,58,237,.3);}
+  .b-gray{background:rgba(139,154,181,.1);color:var(--muted);border:1px solid var(--border);}
+  .b-red{background:rgba(239,68,68,.12);color:#fca5a5;border:1px solid rgba(239,68,68,.25);}
+
+  /* RISK TABLE */
+  .risk-high{color:#fca5a5;}
+  .risk-med{color:var(--gold);}
+  .risk-low{color:#34d399;}
+
+  /* FOOTER */
+  footer{text-align:center;padding:32px 24px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);}
+
+  /* scrollbar */
+  ::-webkit-scrollbar{width:6px;height:6px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo"><span>SafeTrace AI</span></div>
+    <div class="nav-links">
+      <a href="#brief" onclick="setActive(this)">Brief</a>
+      <a href="#team" onclick="setActive(this)">Team</a>
+      <a href="#milestones" onclick="setActive(this)">Milestones</a>
+      <a href="#timeline" onclick="setActive(this)">Timeline</a>
+      <a href="#ideas" onclick="setActive(this)">Ideas</a>
+      <a href="#communication" onclick="setActive(this)">Communication</a>
+      <a href="#selected" onclick="setActive(this)">Selected Project</a>
+      <a href="#research" onclick="setActive(this)">Research</a>
+      <a href="#nextsteps" onclick="setActive(this)">Next Steps</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">✓ Topic Selected — April 7, 2026</div>
+    <h1>PGP AIFL Nov 2025<br/><span>Capstone Project — Group 4</span></h1>
+    <p class="hero-sub">A complete rundown of our project journey — from brief to selected topic, all ideas explored, communication history, and research findings.</p>
+    <div class="hero-chips">
+      <span class="chip chip-green">SafeTrace AI</span>
+      <span class="chip chip-blue">Missing Children Platform</span>
+      <span class="chip chip-purple">GovTech + NGO</span>
+      <span class="chip chip-gold">India → Global</span>
+      <span class="chip chip-pink">7 Ideas Evaluated</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════ BRIEF ══ -->
+  <section id="brief">
+    <div class="section-header">
+      <div class="section-tag">01 — Project Brief</div>
+      <h2>What Is This Capstone?</h2>
+      <p>The official brief from PGP AIFL Nov 2025 program — what we are building and why</p>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">Official Brief</div>
+      <div class="quote-box" style="margin-bottom:16px;">
+        "Think of yourself as a CEO of a start-up that wants to build an AI-based product. The outcome of this capstone project is to create a business pitch of not more than 15 slides to be presented during the Final Presentation — and a detailed report convincing your stakeholders why they should invest in your project idea."
+      </div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.65;">
+        As an <strong style="color:var(--white)">AI-enabled business leader</strong>, our primary job is to identify market opportunities and convince stakeholders how implementing AI can add value. We need to understand the need, capture the market potential, and build a product to capture that market. We also need to produce a PRD (Product Requirement Document) detailing data requirements, implementation roadmap, and financials. Every claim must be backed by solid data — no unsubstantiated statements. Investors expect realistic projections supported with facts.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <div class="stat-box"><div class="stat-num">15</div><div class="stat-lbl">Max slides for Final Pitch</div></div>
+      <div class="stat-box"><div class="stat-num">20 min</div><div class="stat-lbl">Presentation slot per team</div></div>
+      <div class="stat-box"><div class="stat-num">10 min</div><div class="stat-lbl">Q&A with industry experts</div></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ TEAM ══ -->
+  <section id="team">
+    <div class="section-header">
+      <div class="section-tag">02 — Our Team</div>
+      <h2>Group 4 Members</h2>
+      <p>PGP AIFL Nov 2025 — 6 members across diverse domains</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+
+      <!-- 1. Anu George Canjanathoppil -->
+      <div class="team-card">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="avatar" style="background:linear-gradient(135deg,#7c3aed,#4f8ef7)">A</div>
+          <div>
+            <div class="team-name">Anu George Canjanathoppil</div>
+            <div class="team-role">CEO, International Justice Mission Canada</div>
+          </div>
+        </div>
+        <div class="team-detail">
+          20 years in anti-human trafficking. Identified, rescued, and rehabilitated thousands of trafficked individuals across India. Lawyer by training, entrepreneur by calling. Based in Kerala. Supported modern slavery legislation in Canadian Parliament. Currently backing the Invisible Girls Project (government initiative). The domain expert who brought SafeTrace AI to the group.
+        </div>
+        <div><span class="badge b-green">Domain Expert</span> <span class="badge b-purple">Idea Proposer</span></div>
+      </div>
+
+      <!-- 2. Gaurav Gupta -->
+      <div class="team-card">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="avatar" style="background:linear-gradient(135deg,#10b981,#3b82f6)">G</div>
+          <div>
+            <div class="team-name">Gaurav Gupta</div>
+            <div class="team-role">&nbsp;</div>
+          </div>
+        </div>
+        <div class="team-detail">&nbsp;</div>
+        <div><span class="badge b-gray">TBD</span></div>
+      </div>
+
+      <!-- 3. Neelam Bhatt -->
+      <div class="team-card">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="avatar" style="background:linear-gradient(135deg,#059669,#0ea5e9)">N</div>
+          <div>
+            <div class="team-name">Neelam Bhatt</div>
+            <div class="team-role">Delivery Manager | IT Product Development</div>
+          </div>
+        </div>
+        <div class="team-detail">
+          21 years of IT experience. Started as a developer at Sapient Technologies. Specializes in healthcare IT — built a single-page visualization condensing 2,000 pages of gastro patient medical history into one snapshot. Currently managing legacy application modernization for a Delhi NCR firm. Based in Mumbai, works remotely.
+        </div>
+        <div><span class="badge b-blue">Healthcare IT</span> <span class="badge b-blue">Product Delivery</span></div>
+      </div>
+
+      <!-- 4. Paarisha Rana -->
+      <div class="team-card">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="avatar" style="background:linear-gradient(135deg,#f472b6,#a78bfa)">P</div>
+          <div>
+            <div class="team-name">Paarisha Rana</div>
+            <div class="team-role">&nbsp;</div>
+          </div>
+        </div>
+        <div class="team-detail">&nbsp;</div>
+        <div><span class="badge b-gray">TBD</span></div>
+      </div>
+
+      <!-- 5. Praveen Janardanan -->
+      <div class="team-card">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">P</div>
+          <div>
+            <div class="team-name">Praveen Janardanan</div>
+            <div class="team-role">Senior Program & Product Manager, Dell</div>
+          </div>
+        </div>
+        <div class="team-detail">
+          17 years of IT experience. Started as a tech support agent and rose through testing, development, and program management. Handles complete end-to-end delivery from requirements gathering to execution. Strong focus on demonstrating ROI. Proposed the AI Tool Comparison Engine idea in Meeting 1.
+        </div>
+        <div><span class="badge b-gold">Program Management</span> <span class="badge b-gold">ROI Focus</span></div>
+      </div>
+
+      <!-- 6. Shyamala K -->
+      <div class="team-card">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="avatar" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">S</div>
+          <div>
+            <div class="team-name">Shyamala K</div>
+            <div class="team-role">&nbsp;</div>
+          </div>
+        </div>
+        <div class="team-detail">&nbsp;</div>
+        <div><span class="badge b-gray">TBD</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ MILESTONES ══ -->
+  <section id="milestones">
+    <div class="section-header">
+      <div class="section-tag">03 — Milestones & Deadlines</div>
+      <h2>Deliverables & Submission Schedule</h2>
+      <p>Three deliverables across two milestones — all submitted on Olympus as PDFs</p>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;background:rgba(245,158,11,.05);border-color:rgba(245,158,11,.3);">
+      <div style="display:flex;gap:10px;align-items:flex-start;">
+        <span style="font-size:18px">⚠️</span>
+        <p style="font-size:13px;color:var(--gold);">
+          <strong>Deadline Note:</strong> Specific submission dates to be confirmed from Olympus portal. The brief states the project runs over <strong>approximately one month</strong> with two milestone checkpoints. All submissions must be converted to PDF before uploading.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:24px;">
+
+      <div class="milestone-box">
+        <div class="milestone-header">
+          <div class="milestone-num m1-color">M1</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--white)">Milestone 1 — Interim Report</div>
+            <div style="font-size:11px;color:var(--muted)">Word → PDF → Submit on Olympus</div>
+          </div>
+        </div>
+        <div class="milestone-body">
+          <div class="check-item">Problem Statement — define the need and challenges</div>
+          <div class="check-item">Solution at a Glance — why AI? what's the USP?</div>
+          <div class="check-item">Market Size & SWOT — TAM/SAM/SOM, 5yr & 10yr</div>
+          <div class="check-item">Competition — key players, differentiators</div>
+          <div class="check-item">Target Customer — buyer personas</div>
+          <div class="check-item">Company Description — mission, vision, goals</div>
+        </div>
+      </div>
+
+      <div class="milestone-box">
+        <div class="milestone-header">
+          <div class="milestone-num m2-color">M2</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--white)">Milestone 2 — Final Report</div>
+            <div style="font-size:11px;color:var(--muted)">Includes all of M1 + new sections</div>
+          </div>
+        </div>
+        <div class="milestone-body">
+          <div class="check-item">Product — features, benefits, how it solves the problem</div>
+          <div class="check-item">Requirements — data sources, team roles, preprocessing</div>
+          <div class="check-item">Product Development Roadmap — phases, algorithms, metrics</div>
+          <div class="check-item">Expansion Plan — 6-month to 1-year feature roadmap</div>
+          <div class="check-item">Business Model (Financials) — startup costs, revenue projections, ROI, break-even</div>
+        </div>
+      </div>
+
+      <div class="milestone-box">
+        <div class="milestone-header">
+          <div class="milestone-num ppt-color">PPT</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--white)">Final Presentation</div>
+            <div style="font-size:11px;color:var(--muted)">Max 15 slides, live pitch to industry experts</div>
+          </div>
+        </div>
+        <div class="milestone-body">
+          <div class="check-item">Max 15 slides covering all M1 + M2 areas</div>
+          <div class="check-item">Convert to PDF, submit on Olympus</div>
+          <div class="check-item">20-minute live business pitch</div>
+          <div class="check-item">10-minute Q&A with industry experts</div>
+          <div class="check-item">Full group participation required in live presentation</div>
+          <div class="check-item">Claims must be data-backed — no unsubstantiated numbers</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">Key Rules</div>
+      <div class="grid-2">
+        <div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Rule</th><th>Detail</th></tr></thead>
+              <tbody>
+                <tr><td>All claims need data</td><td>No unsubstantiated market size numbers; use Statista, NCRB, ICMEC, etc.</td></tr>
+                <tr><td>Realistic projections</td><td>Investors will scrutinize assumptions — be conservative and credible</td></tr>
+                <tr><td>Course techniques required</td><td>Must use regression, classification, clustering, LLMs, or GenAI</td></tr>
+                <tr><td>Full group in presentation</td><td>All 6 members must participate in the live final pitch</td></tr>
+                <tr><td>PDF submission only</td><td>Convert Word/PPT → PDF before submitting on Olympus</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="card-title" style="margin-bottom:12px">Financial Model Requirements (M2)</div>
+          <div class="research-item"><div class="ri-dot"></div>Startup / initial investment costs</div>
+          <div class="research-item"><div class="ri-dot"></div>Revenue projections: 6-month, 1-year, 3-year</div>
+          <div class="research-item"><div class="ri-dot"></div>Break-even analysis</div>
+          <div class="research-item"><div class="ri-dot"></div>Unit economics for building the product</div>
+          <div class="research-item"><div class="ri-dot"></div>ROI calculator with assumptions stated</div>
+          <div class="research-item"><div class="ri-dot"></div>Reserve for contingencies (20–25% of startup costs)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ TIMELINE ══ -->
+  <section id="timeline">
+    <div class="section-header">
+      <div class="section-tag">04 — Project Timeline</div>
+      <h2>Key Dates & Milestones</h2>
+      <p>From orientation to final pitch — every checkpoint on the project calendar</p>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-title">Overall Progress</div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;">
+        <span style="color:var(--muted)">Mar 28 — Orientation</span>
+        <span style="color:var(--accent);font-weight:600;">Week 1 of ~3</span>
+        <span style="color:var(--muted)">~Apr 26 — Final Presentation</span>
+      </div>
+      <div style="position:relative;height:10px;background:var(--border);border-radius:5px;overflow:hidden;">
+        <div style="position:absolute;left:0;top:0;height:100%;width:38%;background:linear-gradient(90deg,#4f8ef7,#7c3aed);border-radius:5px;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:11px;color:var(--muted);">
+        <span>▲ Mar 28</span>
+        <span>▲ Apr 4</span>
+        <span>▲ Apr 6–7</span>
+        <span style="color:var(--gold);font-weight:700;">▲ Apr 19 (M1)</span>
+        <span>▲ M2</span>
+        <span>▲ Final PPT</span>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="card">
+      <div class="card-title">Full Project Calendar</div>
+      <div class="tl" style="padding-top:8px;">
+
+        <div class="tl-item">
+          <div class="tl-dot dot-green">★</div>
+          <div class="tl-body">
+            <div class="tl-date">March 28, 2026 — Week 0</div>
+            <div class="tl-title">Orientation Day — Project Kickoff</div>
+            <div class="tl-desc">Official start of the PGP AIFL Capstone Project. Program brief shared. Teams formed. Groups given one month to research, develop, and pitch an AI startup idea to industry experts.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-blue">1</div>
+          <div class="tl-body">
+            <div class="tl-date">April 4, 2026 — Week 1</div>
+            <div class="tl-title">First Mentor Session</div>
+            <div class="tl-desc">First structured mentor touchpoint with the program faculty. Opportunity to clarify capstone expectations, milestone requirements, and get early directional feedback before topic finalization.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-blue">2</div>
+          <div class="tl-body">
+            <div class="tl-date">April 6, 2026 — Week 1</div>
+            <div class="tl-title">Group Meeting 1 — First Ideas Discussion</div>
+            <div class="tl-desc">First group call (15 min, WhatsApp). Three ideas surfaced: Employee Engagement Platform, Healthcare EHR/PHR Platform, and AI Tool Comparison Engine (proposed by Praveen Janardanan). No topic finalized — reconvene the next day.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-purple">3</div>
+          <div class="tl-body">
+            <div class="tl-date">April 7, 2026 — Week 1</div>
+            <div class="tl-title">Group Meeting 2 — Topic Pivot & Team Introductions</div>
+            <div class="tl-desc">Full team introduction. Anu George Canjanathoppil introduced the Missing Children Intelligence &amp; Response Platform based on 20 years of anti-trafficking experience. Group pivoted from earlier ideas. Topic confirmed: <strong style="color:#34d399;">SafeTrace AI</strong>. Agreed to move to Google Meet for transcription.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dot-gold">→</div>
+          <div class="tl-body">
+            <div class="tl-date">April 8, 2026 — Week 1 <span style="color:var(--accent);font-size:11px;margin-left:6px;">TODAY</span></div>
+            <div class="tl-title">Group Meeting 3 — Research Review & MVP Scoping</div>
+            <div class="tl-desc">Google Meet (first session with transcription). Agenda: confirm topic, define MVP boundary, assign Milestone 1 sections, align on AI approach for POC, set up shared Google Drive. Research to be shared by all members.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(245,158,11,.2);color:var(--gold);border:2px solid var(--gold);font-size:10px;font-weight:800;">M1</div>
+          <div class="tl-body">
+            <div class="tl-date">April 19, 2026 — End of Week 3</div>
+            <div class="tl-title" style="color:var(--gold);">Milestone 1 Submission Deadline</div>
+            <div class="tl-desc">
+              Interim Report due — submitted as PDF on Olympus. Must cover:
+              <ul style="margin-top:6px;margin-left:16px;color:var(--muted);line-height:1.8;">
+                <li>Problem Statement &amp; Challenges</li>
+                <li>Solution at a Glance — why AI, what's the USP</li>
+                <li>Market Size &amp; SWOT — TAM/SAM/SOM, 5yr &amp; 10yr projections</li>
+                <li>Competition — key players, competitive differentiators</li>
+                <li>Target Customer — buyer personas</li>
+                <li>Company Description — mission, vision, goals</li>
+              </ul>
+              <span style="color:var(--gold);font-weight:600;display:block;margin-top:8px;">⏱ 11 days remaining from April 8</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(167,139,250,.2);color:#a78bfa;border:2px solid #a78bfa;font-size:10px;font-weight:800;">M2</div>
+          <div class="tl-body">
+            <div class="tl-date">TBD — End of Week 4 (approx. late April 2026)</div>
+            <div class="tl-title" style="color:#a78bfa;">Milestone 2 Submission Deadline</div>
+            <div class="tl-desc">
+              Final Report due — comprehensive document incorporating M1 + new sections. Must cover:
+              <ul style="margin-top:6px;margin-left:16px;color:var(--muted);line-height:1.8;">
+                <li>Product — features, customer benefits, how it solves the problem</li>
+                <li>Requirements — data sources, team roles, preprocessing plan</li>
+                <li>Product Development Roadmap — phases, algorithms, key metrics</li>
+                <li>Expansion Plan — 6-month to 1-year feature roadmap</li>
+                <li>Business Model (Financials) — startup costs, revenue projections (6M/1Y/3Y), ROI, break-even</li>
+              </ul>
+              <span style="color:var(--muted);font-size:12px;display:block;margin-top:6px;">Confirm exact date from Olympus portal</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot" style="background:rgba(79,142,247,.2);color:var(--accent);border:2px solid var(--accent);font-size:9px;font-weight:800;">PPT</div>
+          <div class="tl-body">
+            <div class="tl-date">TBD — ~Late April / Early May 2026</div>
+            <div class="tl-title" style="color:var(--accent);">Final Presentation — Live Pitch to Industry Experts</div>
+            <div class="tl-desc">
+              Max 15-slide business pitch. Each team gets a <strong style="color:var(--white);">20-minute slot</strong> followed by a <strong style="color:var(--white);">10-minute Q&amp;A</strong> with industry experts. All 6 group members must participate. Submit PDF on Olympus before the session.
+              <span style="color:var(--muted);font-size:12px;display:block;margin-top:6px;">Confirm exact date from Olympus portal</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Weeks at a glance -->
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title">Weeks at a Glance</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Week</th><th>Dates</th><th>Focus</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Week 0</strong></td><td>Mar 28</td><td>Orientation — project briefed, teams formed</td><td><span class="badge b-green">✓ Done</span></td></tr>
+            <tr><td><strong>Week 1</strong></td><td>Mar 31 – Apr 6</td><td>First mentor session (Apr 4) · Group meetings 1 &amp; 2 · Topic selected</td><td><span class="badge b-green">✓ Done</span></td></tr>
+            <tr class="highlight"><td><strong>Week 1 (now)</strong></td><td>Apr 7 – Apr 13</td><td>Topic confirmed · Research · MVP scoping · M1 drafting begins</td><td><span class="badge b-gold">In Progress</span></td></tr>
+            <tr><td><strong>Week 2</strong></td><td>Apr 14 – Apr 18</td><td>M1 drafting — problem statement, market size, competition, personas, SWOT</td><td><span class="badge b-gray">Upcoming</span></td></tr>
+            <tr><td><strong>Apr 19</strong></td><td>Apr 19</td><td style="color:var(--gold);font-weight:600;">🔴 Milestone 1 Submission Deadline</td><td><span class="badge b-gold">Deadline</span></td></tr>
+            <tr><td><strong>Week 3–4</strong></td><td>Apr 20 – late Apr</td><td>M2 work — product, roadmap, financials, expansion plan</td><td><span class="badge b-gray">Upcoming</span></td></tr>
+            <tr><td><strong>TBD</strong></td><td>Late Apr / May</td><td>Milestone 2 submission · Final PPT · Live presentation</td><td><span class="badge b-gray">Upcoming</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ IDEAS ══ -->
+  <section id="ideas">
+    <div class="section-header">
+      <div class="section-tag">05 — Ideas Explored</div>
+      <h2>All 7 Options Evaluated</h2>
+      <p>Ideas surfaced across WhatsApp, group calls, and individual research before selecting Option G</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:28px;">
+
+      <div class="idea-card">
+        <div class="idea-letter">Option A</div>
+        <div class="idea-name">AI Preventive Healthcare & Disease Detection</div>
+        <div class="idea-model">B2B SaaS · Medium-High difficulty</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5">ML platform detecting early signs of chronic diseases (diabetes, hypertension, cardiac risk) from patient data. Global AI in healthcare market: ~$45B (2024) → $188B (2030). Strong financial narrative. Higher regulatory complexity (HIPAA/DPDP).</p>
+        <div class="idea-tags">
+          <span class="badge b-blue">Classification</span>
+          <span class="badge b-blue">Clustering</span>
+          <span class="badge b-gray">MIMIC-III data</span>
+          <span class="badge b-gray">Not selected</span>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Product name: <strong style="color:var(--white)">EarlySignal</strong></div>
+      </div>
+
+      <div class="idea-card">
+        <div class="idea-letter">Option B</div>
+        <div class="idea-name">GenAI Legal Intelligence for SMEs</div>
+        <div class="idea-model">B2B SaaS · Medium difficulty</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5">LLM-powered tool that reads contracts, flags risk clauses, and summarizes legal documents for SMEs who cannot afford legal counsel. LegalTech market: ~$27B (2024) → $50B+ (2028). 33M+ SMEs in India alone. Was the original top pick before group discussions.</p>
+        <div class="idea-tags">
+          <span class="badge b-purple">LLMs / RAG</span>
+          <span class="badge b-purple">NLP</span>
+          <span class="badge b-gray">Not selected</span>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Product name: <strong style="color:var(--white)">SignSafe AI</strong></div>
+      </div>
+
+      <div class="idea-card">
+        <div class="idea-letter">Option C</div>
+        <div class="idea-name">Customer Churn Prediction & Retention</div>
+        <div class="idea-model">B2B SaaS · Low-Medium difficulty</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5">Plug-and-play SaaS for subscription businesses predicting churn and auto-triggering retention campaigns. Customer retention software market: ~$8B (2024) → $18B (2029). Easiest POC to build with well-understood ML. Clean ROI story.</p>
+        <div class="idea-tags">
+          <span class="badge b-blue">Classification</span>
+          <span class="badge b-blue">Recommendation</span>
+          <span class="badge b-gray">Not selected</span>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Product name: <strong style="color:var(--white)">AnchorAI</strong></div>
+      </div>
+
+      <div class="idea-card">
+        <div class="idea-letter">Option D</div>
+        <div class="idea-name">Hospitality Revenue Management</div>
+        <div class="idea-model">B2B SaaS · Low difficulty</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5">ML platform for independent hotels — dynamic pricing, demand forecasting, booking channel management. INN Hotels dataset from Project 1 already in hand. Hotel Revenue Management Software market: ~$1.8B (2024) → $3.5B (2028). Fastest path to M1.</p>
+        <div class="idea-tags">
+          <span class="badge b-blue">Regression</span>
+          <span class="badge b-blue">Time-series</span>
+          <span class="badge b-gray">Not selected</span>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Product name: <strong style="color:var(--white)">PricePilot</strong></div>
+      </div>
+
+      <div class="idea-card">
+        <div class="idea-letter">Option E</div>
+        <div class="idea-name">Agricultural Advisory for Smallholder Farmers</div>
+        <div class="idea-model">B2C Freemium + B2B · Medium difficulty</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5">Mobile-first AI platform giving smallholder farmers personalized crop recommendations, yield predictions, and market price alerts. AI in agriculture: ~$1.7B (2024) → $4.7B (2028). 146M farmers in India. Strongest social story after Option G.</p>
+        <div class="idea-tags">
+          <span class="badge b-blue">Regression</span>
+          <span class="badge b-blue">Classification</span>
+          <span class="badge b-gray">Not selected</span>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Product name: <strong style="color:var(--white)">KisanMind AI</strong></div>
+      </div>
+
+      <div class="idea-card">
+        <div class="idea-letter">Option F</div>
+        <div class="idea-name">AI Parenting Companion (0–6 Years)</div>
+        <div class="idea-model">B2B2C · Medium difficulty · Proposed by Anu George Canjanathoppil</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5">AI companion for parents of young children — development milestones, health guidance, early learning. Proposed by Anu George Canjanathoppil before the Missing Children Platform idea emerged. Highly emotional pitch. Dark horse candidate.</p>
+        <div class="idea-tags">
+          <span class="badge b-purple">NLP</span>
+          <span class="badge b-purple">GenAI</span>
+          <span class="badge b-gray">Not selected</span>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Product name: <strong style="color:var(--white)">FirstSix AI</strong></div>
+      </div>
+
+      <div class="idea-card selected">
+        <div style="position:absolute;top:14px;right:14px;"><span class="badge b-green">✓ SELECTED</span></div>
+        <div class="idea-letter" style="color:#34d399;">Option G ★</div>
+        <div class="idea-name" style="color:var(--white);font-size:15px;">Missing Children Intelligence & Response Platform</div>
+        <div class="idea-model" style="color:#34d399;">GovTech + NGO · Medium-High · Proposed by Anu George Canjanathoppil</div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5">AI platform transforming missing child response from passive reporting to active intelligence — aggregating data across law enforcement, NGOs, and public channels. Facial recognition, pattern detection, real-time coordination. ~80,000 children go missing in India annually (NCRB).</p>
+        <div class="idea-tags">
+          <span class="badge b-green">Computer Vision</span>
+          <span class="badge b-green">NLP</span>
+          <span class="badge b-green">Geo-clustering</span>
+          <span class="badge b-green">Graph Analytics</span>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted)">Product name: <strong style="color:#34d399;">SafeTrace AI</strong></div>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">Comparison at a Glance</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Factor</th>
+              <th>A — Healthcare</th>
+              <th>B — Legal</th>
+              <th>C — Churn</th>
+              <th>D — Hospitality</th>
+              <th>E — Agriculture</th>
+              <th>F — Parenting</th>
+              <th style="color:#34d399;">G — Missing Children ★</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Problem Clarity</td><td>High</td><td>Very High</td><td>Very High</td><td>High</td><td>Very High</td><td>High</td><td><strong style="color:#34d399;">Very High</strong></td></tr>
+            <tr><td>Market Size</td><td>Very Large</td><td>Large</td><td>Medium</td><td>Medium</td><td>Large (India)</td><td>Large</td><td><strong style="color:#34d399;">Social Impact</strong></td></tr>
+            <tr><td>GenAI Leverage</td><td>High</td><td>Very High</td><td>Medium</td><td>Medium</td><td>Medium</td><td>High</td><td><strong style="color:#34d399;">High</strong></td></tr>
+            <tr><td>Regulatory Risk</td><td class="risk-high">High</td><td class="risk-low">Low</td><td class="risk-low">Low</td><td class="risk-low">Low</td><td class="risk-low">Low</td><td class="risk-low">Low</td><td class="risk-high"><strong>Very High</strong></td></tr>
+            <tr><td>Wow Factor</td><td>High</td><td>Medium</td><td>Medium</td><td>Medium</td><td>Very High</td><td>Very High</td><td><strong style="color:#34d399;">Exceptional</strong></td></tr>
+            <tr><td>Team Domain Expertise</td><td>Medium</td><td>Medium</td><td>Low</td><td>Low</td><td>Low</td><td>Medium</td><td><strong style="color:#34d399;">Very High (Anu George Canjanathoppil)</strong></td></tr>
+            <tr><td>Financial Story</td><td>Strong</td><td>Strong</td><td>Strong</td><td>Strong</td><td>Medium</td><td>Medium</td><td><strong style="color:var(--gold);">Grant + B2G Model</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ COMMUNICATION ══ -->
+  <section id="communication">
+    <div class="section-header">
+      <div class="section-tag">06 — Communication Log</div>
+      <h2>Group Communication History</h2>
+      <p>All meetings, decisions, and action items since the project began</p>
+    </div>
+
+    <!-- Meeting 1 -->
+    <div class="card" style="margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div class="milestone-num m1-color" style="font-size:12px;">M1</div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:var(--white)">Meeting 1 — April 6, 2026</div>
+          <div style="font-size:12px;color:var(--muted)">WhatsApp + 15-minute voice call &nbsp;·&nbsp; 3 of 6 members (Praveen Janardanan + 2 others)</div>
+        </div>
+        <div style="margin-left:auto"><span class="badge b-gold">No decision yet</span></div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <div class="card-title">Topics Discussed</div>
+          <div class="research-item"><div class="ri-dot" style="background:var(--muted)"></div><strong style="color:var(--white)">Employee Engagement Platform</strong> — previously raised in WhatsApp group. Broad idea; no specifics captured.</div>
+          <div class="research-item"><div class="ri-dot" style="background:var(--muted)"></div><strong style="color:var(--white)">Healthcare EHR/PHR Platform</strong> — visualize a patient's complete history (tests, labs, ER visits, meds) in one quick visual format. Goal: make diagnosis faster, remove manual record review. Strongly aligned with Neelam's healthcare work.</div>
+          <div class="research-item"><div class="ri-dot" style="background:var(--accent)"></div><strong style="color:var(--white)">AI Tool Comparison Engine (Praveen Janardanan's idea)</strong> — platform where users/organizations input their needs (industry, license type, size, use cases, budget, ROI) and get a curated comparison of the top 3 tools. 2-page UX: input form → comparative results. Saves organizations significant research time.</div>
+        </div>
+        <div>
+          <div class="card-title">Outcome</div>
+          <div class="quote-box">No topic finalized. All 3 ideas to be researched. Reconvene April 7 at 11:00 AM IST to finalize.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meeting 2 -->
+    <div class="card" style="margin-bottom:16px;border-color:rgba(5,150,105,.3);background:rgba(5,150,105,.03);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div class="milestone-num" style="background:rgba(5,150,105,.15);color:#34d399;font-size:12px;">M2</div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:var(--white)">Meeting 2 — April 7, 2026</div>
+          <div style="font-size:12px;color:var(--muted)">Video call &nbsp;·&nbsp; Full team (incl. Anu George Canjanathoppil joining for first time)</div>
+        </div>
+        <div style="margin-left:auto"><span class="badge b-green">✓ Topic Pivot</span></div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:16px;">
+        <div>
+          <div class="card-title">Team Introductions (first full meeting)</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6;">
+            <strong style="color:var(--white)">Anu George Canjanathoppil</strong> — CEO, International Justice Mission Canada. World's largest anti-human trafficking organization. 20 years identifying, rescuing, and rehabilitating trafficked individuals in India. Lawyer, entrepreneur, based in Kerala.<br/><br/>
+            <strong style="color:var(--white)">Neelam</strong> — Delivery Manager, 21 years IT. Healthcare IT specialist. Built single-page visualization condensing 2,000-page patient medical history. Legacy app modernization, Delhi NCR firm, Mumbai-based.<br/><br/>
+            <strong style="color:var(--white)">Praveen Janardanan</strong> — Sr. Program/Product Manager, Dell. 17 years IT. End-to-end delivery, ROI focus.
+          </div>
+        </div>
+        <div>
+          <div class="card-title">New Topic Introduced by Anu George Canjanathoppil</div>
+          <div class="quote-box">
+            Girls go missing daily in India with no effective mechanism to find them. If not found within 24 hours, they are likely sold across borders — trafficked for sex, labor, drug running, or online sexual abuse. Police apathy, bribery, and lack of information sharing compound the problem.
+          </div>
+        </div>
+      </div>
+
+      <div class="card-title">Two Strategic Approaches Debated</div>
+      <div class="grid-2" style="margin-bottom:16px;">
+        <div style="background:var(--card2);border-radius:10px;padding:16px;">
+          <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:8px;">Option 1 — Top-Down (Partnership Model)</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55;">Collaborate with the public justice system + civil society. Potentially launch with presidential backing to onboard all police stations nationwide. Concern: India may not be institutionally ready. High resistance risk.</div>
+        </div>
+        <div style="background:var(--card2);border-radius:10px;padding:16px;">
+          <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:8px;">Option 2 — Bottom-Up (Crowd-Sourced Aggregator)</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.55;">Start as a grassroots tool for NGOs struggling with police apathy. Could attract justice system interest over time. Requires access to all police station IDs across India. Philippines national police noted as more receptive; India less so.</div>
+        </div>
+      </div>
+
+      <div class="card-title">Proposed MVP Scope</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;">
+        Team agreed to <strong style="color:var(--white)">focus rather than try to solve everything at once.</strong> Recommended path: (1) identify all user personas, (2) map how each interacts with the system, (3) pick one niche for MVP — <strong style="color:var(--white)">suggested: platform for parents/guardians to post missing child information</strong>, (4) public broadcast with location-based feed, (5) easy NGO onboarding.
+      </div>
+
+      <div class="card-title">Key Risks Raised</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Risk</th><th>Severity</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td>Data Privacy</td><td><span class="risk-high">High</span></td><td>Government scrutiny of publicly available location/personal data about minors. DPDP Act implications.</td></tr>
+            <tr><td>Personal Safety</td><td><span class="risk-high">High</span></td><td>Extremely high stakes — confronting traffickers is dangerous. Anu George Canjanathoppil was beaten and paralyzed for a year while doing similar fieldwork.</td></tr>
+            <tr><td>Legal/Operational</td><td><span class="risk-med">Medium</span></td><td>Complex legal landscape around what information can be broadcast. India has historically suppressed visibility on trafficking scale.</td></tr>
+            <tr><td>Police Corruption</td><td><span class="risk-med">Medium</span></td><td>Bribery allows officers to avoid accountability. Any tool increasing public pressure on police faces institutional pushback.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Action items -->
+    <div class="card">
+      <div class="card-title">Open Action Items (from April 7)</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Action Item</th><th>Owner</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Share email addresses with all members</td><td>All</td><td><span class="badge b-gold">In progress</span></td></tr>
+            <tr><td>Create shared Google Drive folder + grant access to all</td><td>All</td><td><span class="badge b-gold">In progress</span></td></tr>
+            <tr><td>Switch all future meetings to Google Meet (enables transcription)</td><td>All</td><td><span class="badge b-gold">In progress</span></td></tr>
+            <tr><td>Research articles and data on missing children / trafficking in India</td><td>All</td><td><span class="badge b-gold">In progress</span></td></tr>
+            <tr><td>Share initial list of user personas</td><td>Anu George Canjanathoppil</td><td><span class="badge b-gold">In progress</span></td></tr>
+            <tr><td>Meeting 3 — April 8, 2026 on Google Meet</td><td>All</td><td><span class="badge b-blue">Scheduled</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ SELECTED PROJECT ══ -->
+  <section id="selected">
+    <div class="section-header">
+      <div class="section-tag">07 — Selected Project</div>
+      <h2>SafeTrace AI — Missing Children Intelligence & Response Platform</h2>
+      <p>Confirmed direction as of April 7, 2026 · GovTech + NGO model · Proposed by Anu George Canjanathoppil</p>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;border-color:rgba(5,150,105,.4);background:linear-gradient(135deg,rgba(5,150,105,.06),var(--card));">
+      <div class="quote-box" style="border-left-color:#34d399;">
+        "A GovTech + NGO AI platform that transforms missing child response from passive reporting to active intelligence — aggregating data across law enforcement, NGOs, and public channels to reduce recovery time through facial recognition, pattern detection, and real-time coordination."
+      </div>
+    </div>
+
+    <div class="grid-4" style="margin-bottom:20px;">
+      <div class="stat-box"><div class="stat-num" style="background:linear-gradient(135deg,#ef4444,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">80,000</div><div class="stat-lbl">Children reported missing in India / year (NCRB, 2022)</div></div>
+      <div class="stat-box"><div class="stat-num" style="background:linear-gradient(135deg,#ef4444,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">8M</div><div class="stat-lbl">Missing children globally / year (ICMEC)</div></div>
+      <div class="stat-box"><div class="stat-num">~50%</div><div class="stat-lbl">Recovery rate within 1 year — 40,000 cases remain unresolved</div></div>
+      <div class="stat-box"><div class="stat-num">&lt;10</div><div class="stat-lbl">Indian states with functional digital tracking (of 28)</div></div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card">
+        <div class="card-title">The Problem — Why Existing Systems Fail</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--red)"></div><strong style="color:var(--white)">Fragmented</strong> — police, NGOs, 1098 Childline, TrackChild, and state systems operate in silos with no shared intelligence layer</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--red)"></div><strong style="color:var(--white)">Reactive</strong> — reports collected but patterns rarely detected across districts or state borders</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--red)"></div><strong style="color:var(--white)">Opaque</strong> — families describe the experience as a "black box"; no visibility into actions being taken</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--red)"></div><strong style="color:var(--white)">Slow</strong> — cross-district and cross-state coordination relies on manual communication</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--red)"></div><strong style="color:var(--white)">First 24–48 hours</strong> are the most critical window — yet no coordinated alert system exists</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Existing Platforms & Their Gaps</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Platform</th><th>Gap</th></tr></thead>
+            <tbody>
+              <tr><td><strong>TrackChild</strong> (Govt.)</td><td>No AI, no cross-agency intelligence, no public interface</td></tr>
+              <tr><td><strong>Khoya Paya</strong> (Govt.)</td><td>Static database, no pattern detection, no alerts</td></tr>
+              <tr><td><strong>1098 Childline</strong></td><td>Call-based only; no data integration with police</td></tr>
+              <tr><td><strong>AMBER Alert</strong> (US)</td><td>US-only; requires law enforcement to initiate; no AI</td></tr>
+              <tr><td style="color:#34d399;"><strong>SafeTrace AI</strong></td><td style="color:#34d399;">First unified AI intelligence layer connecting all stakeholders</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">Core Platform Modules</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;">
+        <div style="background:var(--card2);border-radius:10px;padding:14px;">
+          <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:5px;">🔗 Unified Data Aggregation</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.5;">Ingests reports from police stations, NGOs, 1098 Childline, public tip submissions, TrackChild, and Khoya Paya into one intelligence layer</div>
+        </div>
+        <div style="background:var(--card2);border-radius:10px;padding:14px;">
+          <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:5px;">👁️ Facial Recognition Engine</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.5;">Matches uploaded photos of missing children against sightings, CCTV feeds (where integrated), and cross-database matching. Age-progression modelling for long-term cases.</div>
+        </div>
+        <div style="background:var(--card2);border-radius:10px;padding:14px;">
+          <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:5px;">🧠 Pattern Intelligence</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.5;">Detects cross-district and cross-state patterns — trafficking routes, repeat hotspots, coordinated disappearances — invisible to any single agency</div>
+        </div>
+        <div style="background:var(--card2);border-radius:10px;padding:14px;">
+          <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:5px;">🔔 Real-Time Alert System</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.5;">Pushes verified alerts to law enforcement, NGO field workers, and (selectively) the public based on geographic proximity and case type</div>
+        </div>
+        <div style="background:var(--card2);border-radius:10px;padding:14px;">
+          <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:5px;">📱 Verified Public Tip Interface</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.5;">Citizens can safely report sightings with photo/location — AI-assisted verification filters noise before reaching investigators</div>
+        </div>
+        <div style="background:var(--card2);border-radius:10px;padding:14px;">
+          <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:5px;">📊 Case Tracking Dashboard</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.5;">Gives families, NGOs, and oversight bodies real-time visibility into case status, assigned officers, and actions taken — ending the black box experience</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px;">
+      <div class="card">
+        <div class="card-title">AI Techniques</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Technique</th><th>Application</th></tr></thead>
+            <tbody>
+              <tr><td>Computer Vision / Facial Recognition</td><td>Photo matching, age-progression modelling</td></tr>
+              <tr><td>NLP & Text Mining</td><td>Structured intelligence from FIRs, NGO reports, tip submissions</td></tr>
+              <tr><td>Geospatial Clustering</td><td>Disappearance hotspots, trafficking corridors</td></tr>
+              <tr><td>Graph Analytics</td><td>Linked cases, shared perpetrators, coordinated trafficking networks</td></tr>
+              <tr><td>Classification</td><td>Case risk scoring (trafficking likelihood, time sensitivity)</td></tr>
+              <tr><td>Anomaly Detection</td><td>Unusual disappearance clusters in time/location window</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Business Model — Revenue Streams</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Stream</th><th>Detail</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Government Contracts (B2G)</strong></td><td>₹20–50 lakh/year per state deployment</td></tr>
+              <tr><td><strong>NGO SaaS Tier</strong></td><td>₹5,000–15,000/month per NGO subscriber</td></tr>
+              <tr><td><strong>CSR Funding</strong></td><td>Section 135, Companies Act — corporates required to spend 2% profit on social causes</td></tr>
+              <tr><td><strong>International Grants</strong></td><td>UNICEF, USAID, Gates Foundation, DFID</td></tr>
+              <tr style="background:rgba(5,150,105,.08);"><td><strong style="color:#34d399;">Year 1 Target</strong></td><td style="color:#34d399;">3 state pilots + 50 NGOs = ₹80L–1.2Cr</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Phased Roadmap</div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-dot dot-blue">1</div>
+          <div class="tl-body">
+            <div class="tl-date">0–6 months</div>
+            <div class="tl-title">Phase 1 — Pilot</div>
+            <div class="tl-desc">Deploy in 2 states (Maharashtra + Delhi) with 5 NGO partners. Integrate TrackChild and 1098 Childline data feeds. Case tracking dashboard live. Basic parent/guardian portal operational.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-purple">2</div>
+          <div class="tl-body">
+            <div class="tl-date">6–18 months</div>
+            <div class="tl-title">Phase 2 — Scale</div>
+            <div class="tl-desc">Expand to 10 states. Facial recognition module live. Public tip interface launched. Self-service NGO onboarding. First government performance metrics published.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-gold">3</div>
+          <div class="tl-body">
+            <div class="tl-date">18–36 months</div>
+            <div class="tl-title">Phase 3 — Intelligence</div>
+            <div class="tl-desc">Pattern detection and trafficking corridor mapping operational. Anomaly detection live. NCPCR national partnership signed. Cross-state case coordination automated.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot dot-green">4</div>
+          <div class="tl-body">
+            <div class="tl-date">3–5 years</div>
+            <div class="tl-title">Phase 4 — Global Expansion</div>
+            <div class="tl-desc">South/Southeast Asia expansion. Interpol I-Familia database integration. Cross-border case coordination protocols. UNICEF strategic partnership.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ RESEARCH ══ -->
+  <section id="research">
+    <div class="section-header">
+      <div class="section-tag">08 — Research Findings</div>
+      <h2>What We Know So Far</h2>
+      <p>Data points, market context, and domain knowledge gathered ahead of Milestone 1</p>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px;">
+      <div class="card">
+        <div class="card-title">Problem Scale — India Data</div>
+        <div class="research-item"><div class="ri-dot"></div>~80,000 children reported missing annually in India (NCRB, 2022)</div>
+        <div class="research-item"><div class="ri-dot"></div>Recovery rate within 1 year: ~50% — meaning ~40,000 remain unresolved per year</div>
+        <div class="research-item"><div class="ri-dot"></div>Girls disproportionately affected; most at risk within first 24 hours</div>
+        <div class="research-item"><div class="ri-dot"></div>3,000+ active child protection NGOs in India — none share a common data layer</div>
+        <div class="research-item"><div class="ri-dot"></div>Fewer than 10 of 28 Indian states have functional digital tracking systems</div>
+        <div class="research-item"><div class="ri-dot"></div>Global missing children: ~8 million annually (ICMEC)</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Existing Ecosystem — Key Players</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--muted)"></div><strong style="color:var(--white)">TrackChild</strong> (Govt. of India) — case registration, basic tracking. No AI, no cross-agency sharing.</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--muted)"></div><strong style="color:var(--white)">Khoya Paya</strong> (Govt. of India) — public missing person listing. Static, no alerts, no pattern detection.</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--muted)"></div><strong style="color:var(--white)">1098 Childline</strong> — distress helpline for children. Call-based, no police data integration.</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--muted)"></div><strong style="color:var(--white)">ICMEC</strong> — International Centre for Missing & Exploited Children. International database, not India-specific.</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--muted)"></div><strong style="color:var(--white)">Interpol I-Familia</strong> — cross-border missing persons. Target for Phase 4 integration.</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--muted)"></div><strong style="color:var(--white)">AMBER Alert</strong> (US) — public broadcast alerts. Law enforcement-initiated only; US-only; no AI layer.</div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px;">
+      <div class="card">
+        <div class="card-title">Data Sources Available for POC</div>
+        <div class="research-item"><div class="ri-dot"></div>NCRB (National Crime Records Bureau) — missing persons annual statistics</div>
+        <div class="research-item"><div class="ri-dot"></div>TrackChild portal — Government of India case data</div>
+        <div class="research-item"><div class="ri-dot"></div>Khoya Paya portal — public missing person listings</div>
+        <div class="research-item"><div class="ri-dot"></div>1098 Childline records (with partnership)</div>
+        <div class="research-item"><div class="ri-dot"></div>ICMEC international databases</div>
+        <div class="research-item"><div class="ri-dot"></div>State police FIR databases (via API, willing states)</div>
+        <div class="research-item"><div class="ri-dot"></div>Citizen-submitted sightings (synthetic for POC)</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Business Model Considerations</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--gold)"></div>This is a GovTech + Social Impact play — not a pure commercial SaaS</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--gold)"></div>Grant cycles are slow; government procurement is slow — bridge funding strategy critical</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--gold)"></div>Early NGO subscriptions + CSR grants bridge operations while govt contracts are signed</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--gold)"></div>Section 135 (Companies Act): Large Indian corporates required to spend 2% profit on social causes</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--gold)"></div>UNICEF, USAID, Gates Foundation, DFID all fund child protection technology</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--gold)"></div>International licensing model possible for South/Southeast Asia expansion</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">User Personas to Define (Anu George Canjanathoppil to Lead)</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Persona</th><th>Primary Need</th><th>MVP Priority</th></tr></thead>
+          <tbody>
+            <tr class="highlight"><td><strong>Parents / Guardians</strong></td><td>Report missing child; receive updates; broadcast to community</td><td><span class="badge b-green">MVP — Priority 1</span></td></tr>
+            <tr><td><strong>NGO Field Workers</strong></td><td>Access real-time missing child feeds; coordinate with other organizations</td><td><span class="badge b-blue">MVP — Priority 2</span></td></tr>
+            <tr><td><strong>Law Enforcement</strong></td><td>Receive structured reports; coordinate cross-district; track accountability</td><td><span class="badge b-gold">Phase 2</span></td></tr>
+            <tr><td><strong>General Public</strong></td><td>Report sightings safely; receive location-based alerts</td><td><span class="badge b-gold">Phase 2</span></td></tr>
+            <tr><td><strong>Justice System / NCPCR</strong></td><td>Oversight dashboards; policy data; cross-state performance metrics</td><td><span class="badge b-gray">Phase 3</span></td></tr>
+            <tr><td><strong>International Agencies</strong></td><td>Cross-border coordination; data sharing protocols</td><td><span class="badge b-gray">Phase 4</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ NEXT STEPS ══ -->
+  <section id="nextsteps">
+    <div class="section-header">
+      <div class="section-tag">09 — Next Steps</div>
+      <h2>Immediate Priorities</h2>
+      <p>What the team needs to accomplish before and during the April 8 meeting</p>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:16px;">
+      <div class="card">
+        <div class="card-title">Research to Complete (All Members)</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--red)"></div>Scale: exact NCRB data on missing children annually by state</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--red)"></div>Gap analysis: what do TrackChild and Khoya Paya NOT do? (Primary differentiator)</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--red)"></div>What does a parent/guardian actually need in the first 24 hours?</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--red)"></div>Which NGOs would be early adopters? (Specific names, contact potential)</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--gold)"></div>Legal/privacy constraints: DPDP Act for data about minors</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--gold)"></div>AI component detail: facial matching vs. NLP on FIRs vs. geo-alert system (pick primary for POC)</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--gold)"></div>CSR funding landscape: which large Indian corporates fund child protection?</div>
+        <div class="research-item"><div class="ri-dot" style="background:var(--accent)"></div>Business case framing: grant/NGO model sustainability narrative for Milestone 1 judges</div>
+      </div>
+
+      <div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="card-title">Anu George Canjanathoppil — Specific Deliverable</div>
+          <div class="research-item"><div class="ri-dot" style="background:#34d399"></div>Share detailed user persona list (agreed in Meeting 2 action items)</div>
+          <div class="research-item"><div class="ri-dot" style="background:#34d399"></div>NGO landscape in India — organizations already doing this work</div>
+          <div class="research-item"><div class="ri-dot" style="background:#34d399"></div>Ground-level data on police station coverage and apathy patterns</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">April 8 Meeting Agenda (Google Meet)</div>
+          <div class="check-item" style="font-size:13px;padding:7px 0;">Confirm final topic (SafeTrace AI) — unanimous agreement</div>
+          <div class="check-item" style="font-size:13px;padding:7px 0;">Define MVP scope — parents portal only, or include NGO layer from Day 1?</div>
+          <div class="check-item" style="font-size:13px;padding:7px 0;">Decide primary AI angle for POC (CV / NLP / Geo)</div>
+          <div class="check-item" style="font-size:13px;padding:7px 0;">Assign M1 sections to team members</div>
+          <div class="check-item" style="font-size:13px;padding:7px 0;">Set up Google Drive and confirm shared workspace</div>
+          <div class="check-item" style="font-size:13px;padding:7px 0;">Discuss financial model approach for pitch</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="background:linear-gradient(135deg,rgba(5,150,105,.08),rgba(79,142,247,.05));border-color:rgba(5,150,105,.3);">
+      <div class="card-title" style="color:#34d399;">Why SafeTrace AI Will Stand Apart</div>
+      <div class="grid-2">
+        <div>
+          <div class="research-item"><div class="ri-dot" style="background:#34d399"></div><strong style="color:var(--white)">Mission-driven at its core</strong> — the problem is a life-or-death systems failure, not a business inefficiency. Judges will be fully engaged.</div>
+          <div class="research-item"><div class="ri-dot" style="background:#34d399"></div><strong style="color:var(--white)">Founder with lived expertise</strong> — Anu George Canjanathoppil's 20 years in anti-trafficking is an unfair advantage. No other group will have this credibility.</div>
+          <div class="research-item"><div class="ri-dot" style="background:#34d399"></div><strong style="color:var(--white)">Full AI curriculum coverage</strong> — CV, NLP, geospatial clustering, graph analytics, classification, anomaly detection.</div>
+        </div>
+        <div>
+          <div class="research-item"><div class="ri-dot" style="background:#34d399"></div><strong style="color:var(--white)">Real, fundable market</strong> — government contracts + NGO subscriptions + international grants are concrete revenue paths.</div>
+          <div class="research-item"><div class="ri-dot" style="background:#34d399"></div><strong style="color:var(--white)">International expansion story</strong> — Interpol, UNICEF, South Asia — gives the 10-year vision genuine global scale.</div>
+          <div class="research-item"><div class="ri-dot" style="background:#34d399"></div><strong style="color:var(--white)">No other group will have this</strong> — unique idea, unique domain expert, unique level of mission clarity in the room.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page -->
+
+<footer>
+  <div>PGP AIFL Nov 2025 &nbsp;·&nbsp; Group 4 &nbsp;·&nbsp; SafeTrace AI — Missing Children Intelligence & Response Platform</div>
+  <div style="margin-top:6px;">Team: Anu George Canjanathoppil · Gaurav Gupta · Neelam Bhatt · Paarisha Rana · Praveen Janardanan · Shyamala K &nbsp;·&nbsp; Last updated: April 8, 2026</div>
+  <div style="margin-top:6px;font-size:11px;color:rgba(139,154,181,.5);">Self-contained HTML · No external dependencies · Safe to share via Google Drive</div>
+</footer>
+
+<script>
+  function setActive(el){
+    document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+    el.classList.add('active');
+  }
+  // highlight nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(a=>{
+          a.classList.toggle('active', a.getAttribute('href')==='#'+e.target.id);
+        });
+      }
+    });
+  },{threshold:0.35});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
